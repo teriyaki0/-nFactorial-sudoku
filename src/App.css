@@ -1,0 +1,369 @@
+/**
+ * Import Google Fonts.
+ */
+@import url("https://fonts.googleapis.com/css?family=Teko|Noto+Sans|Source+Sans+Pro:300,400,600");
+
+/**
+ * Custom Properties for keeping the CSS 'DRY'!
+ */
+:root {
+  --background-color: #fff;
+  --color-blue: hsl(210, 88%, 56%);
+  --color-grey: hsl(213, 30%, 29%);
+  --color-grey-light: hsl(213, 30%, 59%);
+  --color-grey-lighter: hsl(213, 30%, 79%);
+  --color-orange: hsl(34, 26%, 89%);
+  --color-orange-dark: hsl(34, 76%, 89%);
+}
+
+.game-flex {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 20px;
+}
+/**
+ * CSS Resets for all elements.
+ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--background-color);
+  color: var(--color-blue);
+  font-family: "Source Sans Pro", sans-serif;
+  line-height: 1.4em;
+  font-weight: 300;
+}
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.game {
+  display: flex;
+  justify-content: center;
+}
+.header {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+.solver {
+  padding: 10px 40px;
+  cursor: pointer;
+  background-color: var(--color-grey);
+  border: none;
+  color: #fff;
+  border-radius: 5px;
+}
+.options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.delete {
+  background-color: var(--color-grey);
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 7px;
+}
+
+.game__board {
+  font-family: "Noto Sans", sans-serif;
+  font-size: 26px;
+  margin: 30px 0;
+  border: 2px solid var(--color-grey);
+  border-collapse: collapse;
+}
+
+.game__row:nth-child(3n) {
+  border-bottom: 2px solid var(--color-grey);
+}
+
+.game__cell {
+  border: 1px solid var(--color-grey-lighter);
+  padding: 12px 16px;
+  color: var(--background-color);
+  cursor: pointer;
+}
+
+.game__cell.game__cell--filled {
+  color: var(--color-grey);
+}
+
+.game__cell.game__cell--userfilled {
+  color: var(--color-grey-light);
+}
+
+.game__cell.game__cell--selected {
+  color: var(--color-orange);
+  background-color: var(--color-orange);
+}
+
+.game__cell.game__cell--filled.game__cell--selected {
+  color: var(--color-grey);
+  background-color: var(--color-orange);
+}
+
+.game__cell.game__cell--userfilled.game__cell--selected {
+  color: var(--color-grey-light);
+  background-color: var(--color-orange);
+}
+
+.game__cell.game__cell--highlightselected {
+  color: var(--color-orange-dark);
+  background-color: var(--color-orange-dark);
+}
+
+.game__cell.game__cell--filled.game__cell--highlightselected {
+  color: var(--color-grey);
+  background-color: var(--color-orange-dark);
+}
+
+.game__cell.game__cell--userfilled.game__cell--highlightselected {
+  color: var(--color-grey-light);
+  background-color: var(--color-orange-dark);
+}
+
+.game__cell:nth-child(3n) {
+  border-right: 2px solid var(--color-grey);
+}
+.difficult {
+  cursor: pointer;
+  font-size: 20px;
+  color: var(--color-blue);
+}
+.container {
+  position: relative;
+  max-width: 674px;
+  width: 100%;
+  padding: 0 20px;
+}
+.popup {
+  position: absolute;
+  background-color: var(--color-grey-lighter);
+  padding: 10px 20px;
+  right: 30px;
+  top: 70px;
+  border-radius: 5px;
+}
+.popup__item {
+  color: #fff;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  cursor: pointer;
+}
+.footer {
+  color: var(--color-grey);
+  font-weight: 400;
+  margin: 80px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.number {
+  cursor: pointer;
+  font-size: 20px;
+  padding: 7px 13px;
+  background-color: var(--color-grey);
+  color: #fff;
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+.footer a {
+  color: var(--color-blue);
+  text-decoration: none;
+  padding-bottom: 0px;
+  border-bottom: 2px dotted var(--color-blue);
+}
+
+.footer a:visited {
+  color: var(--color-blue);
+}
+
+/**
+ * Overlay Section
+ */
+.overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  cursor: pointer;
+}
+
+.overlay--visible {
+  display: block;
+}
+
+.overlay__text {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 60px;
+  font-weight: 600;
+  color: var(--color-orange);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 10px 20px rgba(0, 0, 0, 0.25);
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+.overlay__textspan1 {
+  color: var(--color-grey-lighter);
+}
+
+.overlay__textspan2 {
+  color: var(--color-blue);
+}
+
+/**
+ * Add this to blur any DIV!
+ */
+.blur {
+  -webkit-filter: blur(2px);
+  -moz-filter: blur(2px);
+  -o-filter: blur(2px);
+  -ms-filter: blur(2px);
+  filter: blur(2px);
+}
+
+/**
+ * Responsive Web Design!
+ * 5 Modes:
+ * 1. screen width > 670 px (2 column mode)
+ * 2. 500px < screen width <= 670 px (1 column mode from here down...)
+ * 3. 350px < screen width <= 500 px
+ * 4. 300px < screen width <= 350 px
+ * 5. screen width <= 300 px
+ */
+@media screen and (max-width: 670px) {
+  .innercontainer {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .game,
+  .status {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .game__board {
+    width: 100%;
+  }
+  .game__cell {
+    text-align: center;
+  }
+  .status__difficulty {
+    top: -18px;
+    left: 0;
+    width: 70%;
+  }
+  .status__time {
+    top: -20px;
+    left: 0;
+    width: 30%;
+    margin: 0;
+    background-color: var(--background-color);
+    text-align: right;
+    font-size: 22px;
+  }
+  .status__numbers {
+    top: -10px;
+    left: 0;
+    width: 100%;
+    grid-template-columns: repeat(9, 1fr);
+    background-color: var(--color-orange);
+  }
+  .status__number {
+    padding: 12px 0;
+  }
+  .status__actions {
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+  .status__action-undo,
+  .status__action-erase,
+  .status__action-hint {
+    width: 16.66%;
+  }
+
+  .status__action-mistakes-mode {
+    width: 30%;
+  }
+
+  .status__action-fast-mode {
+    width: 20%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .game__cell,
+  .status__number {
+    font-size: 18px;
+    padding: 8px 0;
+  }
+  .status__action-text {
+    font-size: 14px;
+  }
+
+  .overlay__text {
+    font-size: 50px;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .game__cell,
+  .status__number {
+    font-size: 16px;
+    padding: 4px 0;
+  }
+  .status__action-undo,
+  .status__action-erase,
+  .status__action-hint {
+    width: 33%;
+  }
+
+  .status__action-mistakes-mode {
+    width: 60%;
+  }
+
+  .status__action-fast-mode {
+    width: 40%;
+  }
+
+  .overlay__text {
+    font-size: 40px;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .game__cell,
+  .status__number {
+    font-size: 14px;
+    padding: 2px 0;
+  }
+  .status__difficulty-text {
+    display: none;
+  }
+  .status__difficulty-select {
+    padding-left: 0;
+    margin-top: 3px;
+  }
+  .overlay__text {
+    font-size: 30px;
+  }
+}
