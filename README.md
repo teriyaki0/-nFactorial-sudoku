@@ -6,7 +6,7 @@
 
 The `gh-pages` branch contains a pre-built
 
-See: <>
+See: <https://teriyaki0.github.io/nFactorial-sudoku/>
 
 ### Install dependencies
 
