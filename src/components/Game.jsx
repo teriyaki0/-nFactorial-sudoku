@@ -10,6 +10,7 @@ export const Game = () => {
   const [initArray, setInitArray] = useState([]);
   const [solvedArray, setSolvedArray] = useState([]);
   const [cellSelected, setCellSelected] = useState(-1);
+  const [newGame, setNewGame] = useState(false);
   const [won, setWon] = useState(false);
   const [popup, setPopup] = useState(false);
 
@@ -39,7 +40,16 @@ export const Game = () => {
     }
     return false;
   };
-
+  const handleNewGame = () => {
+    const [temporaryInitArray, temporarySolvedArray] =
+      getUniqueSudoku(difficult);
+    setGameArray(temporaryInitArray);
+    setInitArray(temporaryInitArray);
+    setSolvedArray(temporarySolvedArray);
+    setWon(false);
+    setNewGame(!newGame);
+    setNumberSelected("0");
+  };
   const cellChoice = (index, value) => {
     if (initArray[index] === "0") {
       let tempArray = gameArray.slice();
@@ -63,7 +73,9 @@ export const Game = () => {
     setCellSelected(index);
   };
   const deleteCell = () => {
-    cellChoice(cellSelected, "0");
+    if (!won) {
+      cellChoice(cellSelected, "0");
+    }
   };
 
   const handleClick = (number) => {
@@ -79,13 +91,18 @@ export const Game = () => {
 
   return (
     <div className='container'>
-      <div className='header'>
-        <Timer won={won} difficult={difficult} />
+      {won ? <div className='won'>You Won</div> : ""}
+      <header className='header'>
+        <button className='solver' onClick={() => handleNewGame()}>
+          New Game
+        </button>
+      </header>
+      <div className='header__inner'>
+        <Timer won={won} difficult={difficult} newGame={newGame} />
         <div>
           <span onClick={() => setPopup(!popup)} className='difficult'>
-            {difficult}
+            ▾ {difficult}
           </span>
-
           {popup ? (
             <div className='popup'>
               {difficultLevels.map((levels, index) => {

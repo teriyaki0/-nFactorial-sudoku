@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 
-export const Timer = ({ won, difficult }) => {
+export const Timer = ({ won, difficult, newGame }) => {
   const [wonTime, setWonTime] = useState("60:00");
   const [bestTime, setBestTime] = useState(wonTime);
+  const [bestDifficult, setBestDifficult] = useState("Easy");
   const [time, setTime] = useState(0);
   const [timerId, setTimerId] = useState(null);
+
+  const difficultLevels = ["Easy", "Medium", "Hard", "Very Hard", "Insane"];
 
   useEffect(() => {
     startTimer();
@@ -24,7 +27,7 @@ export const Timer = ({ won, difficult }) => {
   useEffect(() => {
     setTime(0);
     setTimerId(1);
-  }, [difficult]);
+  }, [difficult, newGame]);
 
   function startTimer() {
     setTimerId(1);
@@ -39,8 +42,18 @@ export const Timer = ({ won, difficult }) => {
     parseInt(bestTime.split(":")[0]) * 60 + parseInt(bestTime.split(":")[1]);
   const seconds2 =
     parseInt(wonTime.split(":")[0]) * 60 + parseInt(wonTime.split(":")[1]);
+
   if (seconds1 > seconds2) {
     setBestTime(wonTime);
+  }
+
+  if (won) {
+    if (
+      difficultLevels.indexOf(bestDifficult) <
+      difficultLevels.indexOf(difficult)
+    ) {
+      setBestDifficult(difficult);
+    }
   }
 
   function formatTime(seconds) {
@@ -53,7 +66,9 @@ export const Timer = ({ won, difficult }) => {
 
   return (
     <div>
-      <span>You Best Time: {bestTime}</span>
+      <span>
+        You Best Game: {bestTime} ({bestDifficult})
+      </span>
 
       <div>{formatTime(time)}</div>
     </div>
